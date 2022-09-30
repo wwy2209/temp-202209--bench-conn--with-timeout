@@ -1,12 +1,16 @@
-import { ALL_TASKS, fetchOptions } from '../env/constData.js'
+// import { ALL_TASKS, fetchOptions } from '../env/constData.js'
+const { ALL_TASKS, fetchOptions } = require('../env/constData.js')
 
 // https://stackoverflow.com/a/66309132
 // NOTE: not-run main() =>when testing
-import path from 'path';
-import { fileURLToPath } from 'url'
-const nodePath = path.resolve(process.argv[1]);
-const modulePath = path.resolve(fileURLToPath(import.meta.url))
-const isRunningDirectlyViaCLI = nodePath === modulePath
+// import path from 'path';
+// import { fileURLToPath } from 'url'
+const path = require('path')
+const { fileURLToPath } = require('url')
+
+// const nodePath = path.resolve(process.argv[1]);
+// const modulePath = path.resolve(fileURLToPath(import.meta.url))
+// const isRunningDirectlyViaCLI = nodePath === modulePath
 
 const GLOBAL_URL = fetchOptions.url;
 // const GLOBAL_URL = 'https://wen043.settrade.com/webrealtime/data/fastquote.jsp';
@@ -93,13 +97,15 @@ async function main() {
     console.log('Ended-main;');
 }
 
-// main()
-console.log('isRunningDirectlyViaCLI: ', isRunningDirectlyViaCLI);
-if (isRunningDirectlyViaCLI) {
-    console.log('console-starting: -- ');
-    main();
-    console.log('console-ended: -- ');
-}
+main().catch(err => {
+    console.error(err);
+})
+// console.log('isRunningDirectlyViaCLI: ', isRunningDirectlyViaCLI);
+// if (isRunningDirectlyViaCLI) {
+//     console.log('console-starting: -- ');
+//     main();
+//     console.log('console-ended: -- ');
+// }
 
 
-export { oneFetch }
+// export { oneFetch }

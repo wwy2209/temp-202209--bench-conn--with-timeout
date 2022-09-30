@@ -8,8 +8,8 @@
 // import got from 'got';
 // import fetch from 'node-fetch';
 
-// -import fetchOptions from "../env/fetchOptions.js"
-import fetchOptions from "../env/fetchOptionsOld.js"
+// import fetchOptions from "../env/fetchOptions.js"
+const fetchOptions = require("../env/fetchOptions.js")
 
 // const nodePath = path.resolve(process.argv[1]);
 // const modulePath = path.resolve(fileURLToPath(import.meta.url))
@@ -44,9 +44,20 @@ const oneFetch = async function (someParams) {
         //     hasErr = true;
         // }
 
+        const timeFetchStart = Date.now()
+
+        const timeUseController = new AbortController;
+        const timeoutID = setTimeout(()=>timeUseController.abort(), 200)
+        OPTIONS.signal = timeUseController.signal;
+
         // const res = await fetch(GLOBAL_URL)
         const res = await fetch(GLOBAL_URL, OPTIONS)
             .catch(function (err) {
+                // console.error(err);
+                // console.log(err.name == 'AbortError');
+                if (err.name == 'AbortError') {
+                    return 'AbortError';
+                }
                 hasErr = true;
 
                 return false;
@@ -54,10 +65,16 @@ const oneFetch = async function (someParams) {
 
         if (res === false) {
             hasErr = true;
+        } else if(res == 'AbortError'){
+            const timeFetchAbortErrorUsed = Date.now() - timeFetchStart
+            console.log('timeFetchAbortErrorUsed: ', timeFetchAbortErrorUsed);
         } else {
             const hasData = await res.text();
             // const hasData = await res.body();
             // console.log(hasData);
+
+            const timeFetchUsed = Date.now() - timeFetchStart
+            console.log('timeFetchUsed: ', timeFetchUsed);
         }
 
     }

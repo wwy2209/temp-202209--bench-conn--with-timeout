@@ -1,16 +1,19 @@
 
 // https://stackoverflow.com/a/66309132
-import path from 'path';
-import { fileURLToPath } from 'url'
+// import path from 'path';
+// import { fileURLToPath } from 'url'
+// const path = require('path')
+// const { fileURLToPath } = require('url')
 
 // import got from 'got';
 // import fetch from 'node-fetch';
 
-import fetchOptions from "../env/fetchOptions.js"
+// import fetchOptions from "../env/fetchOptions.js"
+const fetchOptions = require("../env/fetchOptions.js")
 
-const nodePath = path.resolve(process.argv[1]);
-const modulePath = path.resolve(fileURLToPath(import.meta.url))
-const isRunningDirectlyViaCLI = nodePath === modulePath
+// const nodePath = path.resolve(process.argv[1]);
+// const modulePath = path.resolve(fileURLToPath(import.meta.url))
+// const isRunningDirectlyViaCLI = nodePath === modulePath
 
 const GLOBAL_URL = fetchOptions.url;
 // const GLOBAL_URL = 'https://wen043.settrade.com/webrealtime/data/fastquote.jsp';
@@ -126,13 +129,15 @@ async function main() {
     }
 }
 
-// main()
-console.log('isRunningDirectlyViaCLI: ', isRunningDirectlyViaCLI);
-if (isRunningDirectlyViaCLI) {
-    console.log('console-starting: -- ');
-    main();
-    console.log('console-ended: -- ');
-}
+main().catch(err => {
+    console.error(err);
+})
+// console.log('isRunningDirectlyViaCLI: ', isRunningDirectlyViaCLI);
+// if (isRunningDirectlyViaCLI) {
+//     console.log('console-starting: -- ');
+//     main();
+//     console.log('console-ended: -- ');
+// }
 
 
-export { oneFetch }
+// export { oneFetch }

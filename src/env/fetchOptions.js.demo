@@ -29,9 +29,11 @@ const options =
 // const url = `https://pokeapi.co/api/v2/pokemon/{(number)}`
 // const url = `https://pokeapi.co/api/v2/pokemon/1`
 //const url = `VarXXX`
+const url_ALLTASKS = `VarXXX`
 
 export default {
     url,
+    url_ALLTASKS,
     options,
     key,
 }; 

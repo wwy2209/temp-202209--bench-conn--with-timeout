@@ -3,7 +3,11 @@ import { ALL_TASKS } from "./all.js"
 
 import fetchOptions from "./fetchOptions.js"
 
-export {
+// export {
+//     ALL_TASKS,
+//     fetchOptions,
+// }
+module.exports = Object.freeze({
     ALL_TASKS,
     fetchOptions,
-}
+})
